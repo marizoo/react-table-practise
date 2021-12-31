@@ -1,0 +1,60 @@
+body {
+    background: #1d1d1d;
+}
+
+.container {
+display: flex;
+flex-direction: column;
+gap: 10px;
+padding: 1rem;
+color: white;
+}
+
+.form {
+    display: flex;
+    gap: 5px;
+}
+
+.table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.thead {
+    background: #1d1d1d;
+    color: white;
+}
+
+.thtd{
+    border: 1px solid #fff;
+    text-align: left;
+    padding: 8px;
+    font-size: 32px;
+    background: #1d1d1d;
+}
+
+.button {
+    background-color: black;
+    border: 1px solid white;
+    color: white;
+    border: 0;
+    padding: 8px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.title {
+    font-size: 30px;
+}
+
+.addForm{
+    width: 100%;
+}
+
+.input {
+    height: 40px;
+    width: 200px;
+    margin-right: 10px;
+    padding-left: 20px;
+}
