@@ -17,9 +17,15 @@ const App = () => {
     phoneNumber: '',
     email: '',
   })
+  const [editFormData, setEditFormData] = useState({
+      fullName: '',
+      address: '',
+      phoneNumber: '',
+      email: '',
+  })
 
 
-  // ? the input handle for data binding
+  // ? the input handle for data binding: ADD
   const handleAddInput = (ev) => {
     ev.preventDefault();
     
@@ -32,8 +38,21 @@ const App = () => {
     setAddFormData(newAddedContact);
   }
 
+    // ? the input handle for data binding: EDIT
+  const handleEditInput = (ev) => {
+    ev.preventDefault();
 
-  // ? the form submission handles
+    const fieldName = ev.target.getAttribute('name');
+    const fieldValue = ev.target.value;
+
+    const editedContact = {...editFormData};
+    editedContact[fieldName] = fieldValue;
+
+    setEditFormData(editedContact);
+  }
+
+
+  // ? the ADD form submission handles
   const submitAddContact = (ev) => {
     ev.preventDefault();
 
@@ -47,7 +66,27 @@ const App = () => {
 
     const currentAndNewContact = [...contacts, newContactAdded];
     setContacts(currentAndNewContact);
-   
+  }
+
+  // ? the EDIT form submission handles
+  const submitEditContact = (ev) => {
+    ev.preventDefault();
+
+    const editedContact = {
+      id: editContactId,
+      fullName: editFormData.fullName,
+      address: editFormData.address,
+      phoneNumber: editFormData.phoneNumber,
+      email: editFormData.email,
+    }
+
+    const newEditedContacts = [...contacts];
+    const index = contacts.findIndex(contact => contact.id === editContactId);
+
+    newEditedContacts[index] = editedContact;
+
+    setContacts(newEditedContacts);
+    setEditContactId(null);
   }
 
   // ? delete contacts
@@ -59,14 +98,35 @@ const App = () => {
     toDeleteContact.splice(index, 1);
 
     setContacts(toDeleteContact);
-   
+  }
+
+  // ? Edit contacts
+  const handleEditContact = (ev, contact) => {
+    ev.preventDefault();
+    setEditContactId(contact.id)
+
+    //? to display the current contact in the edited input.
+    const formValues = {
+      fullName: contact.fullName,
+      address: contact.address,
+      phoneNumber: contact.phoneNumber,
+      email: contact.email,
+    }
+
+    setEditFormData(formValues);
+
+  }
+
+   // ? Cancel Button
+  const handleCancel = () => {
+    setEditContactId(null);
   }
 
 
   return (
   
     <div className={container}>
-      <form className={form}>
+      <form className={form} onSubmit={submitEditContact}>
         <table className={table}>
             <thead className={thead}>
               <th className={thtd}>Name</th>
@@ -77,10 +137,25 @@ const App = () => {
             </thead>
 
             <tbody>
-                {/* <EditableRow /> */}
-                {contacts.map(contact => (
-                <ReadOnlyRow key={contact.id} contact={contact} onDeleteContact={handleDeleteContact}/>
-                ))}
+              {contacts.map(contact => (
+                <>
+                  {editContactId === contact.id
+                    ?  <EditableRow 
+                        editFormData={editFormData}
+                        onHandleEditInput={handleEditInput}
+                        onHandleCancel={handleCancel}
+                      />
+                    : <ReadOnlyRow 
+                        key={contact.id} 
+                        contact={contact} 
+                        onEditContact={handleEditContact}
+                        onDeleteContact={handleDeleteContact}/>
+                    }
+                </>
+              ))}
+                
+                
+                
             </tbody>
         </table>
       </form>

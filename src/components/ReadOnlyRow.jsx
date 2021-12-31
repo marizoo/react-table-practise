@@ -1,7 +1,7 @@
 import React from 'react'
 import {thtd, button} from '../Style.module.css'
 
-const ReadOnlyRow = ({contact, onDeleteContact}) => {
+const ReadOnlyRow = ({contact, onDeleteContact, onEditContact}) => {
     return (
         <tr>
            <td className={thtd}>{contact.fullName}</td> 
@@ -9,8 +9,8 @@ const ReadOnlyRow = ({contact, onDeleteContact}) => {
            <td className={thtd}>{contact.phoneNumber}</td> 
            <td className={thtd}>{contact.email}</td> 
            <td className={thtd}>
-               <button className={button}>Edit</button>
-               <button onClick={() => onDeleteContact(contact.id)} className={button}>Delete</button>
+               <button onClick={(ev) => onEditContact(ev,contact)} type="button" className={button}>Edit</button>
+               <button onClick={() => onDeleteContact(contact.id)} type="button" className={button}>Delete</button>
            </td>
         </tr>
     )
