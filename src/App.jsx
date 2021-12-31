@@ -17,13 +17,12 @@ const App = () => {
     phoneNumber: '',
     email: '',
   })
-  const [editFormData, setEditFormData] = useState({
-      fullName: '',
-      address: '',
-      phoneNumber: '',
-      email: '',
-  })
-
+ const [editFormData, setEditFormData] = useState({
+   fullName: '',
+   address: '',
+   phoneNumber: '',
+   email: '',
+ })
 
   // ? the input handle for data binding: ADD
   const handleAddInput = (ev) => {
@@ -45,12 +44,11 @@ const App = () => {
     const fieldName = ev.target.getAttribute('name');
     const fieldValue = ev.target.value;
 
-    const editedContact = {...editFormData};
-    editedContact[fieldName] = fieldValue;
+    const editedContacts = {...editFormData};
+    editedContacts[fieldName] = fieldValue;
 
-    setEditFormData(editedContact);
+    setEditFormData(editedContacts);
   }
-
 
   // ? the ADD form submission handles
   const submitAddContact = (ev) => {
@@ -70,22 +68,22 @@ const App = () => {
 
   // ? the EDIT form submission handles
   const submitEditContact = (ev) => {
-    ev.preventDefault();
+    ev.preventDefault()
 
     const editedContact = {
       id: editContactId,
-      fullName: editFormData.fullName,
+      fullName : editFormData.fullName,
       address: editFormData.address,
       phoneNumber: editFormData.phoneNumber,
       email: editFormData.email,
     }
 
-    const newEditedContacts = [...contacts];
+    const currentContacts = [...contacts];
     const index = contacts.findIndex(contact => contact.id === editContactId);
+    
+    currentContacts[index] = editedContact;
 
-    newEditedContacts[index] = editedContact;
-
-    setContacts(newEditedContacts);
+    setContacts(currentContacts);
     setEditContactId(null);
   }
 
@@ -103,18 +101,16 @@ const App = () => {
   // ? Edit contacts
   const handleEditContact = (ev, contact) => {
     ev.preventDefault();
-    setEditContactId(contact.id)
+    setEditContactId(contact.id);
 
-    //? to display the current contact in the edited input.
-    const formValues = {
+    const formValue = {
       fullName: contact.fullName,
       address: contact.address,
-      phoneNumber: contact.phoneNumber,
+      phoneNumber : contact.phoneNumber,
       email: contact.email,
     }
 
-    setEditFormData(formValues);
-
+    setEditFormData(formValue);
   }
 
    // ? Cancel Button

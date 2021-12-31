@@ -1,7 +1,8 @@
 import React from 'react'
 import {input, button} from '../Style.module.css'
 
-const EditableRow = ({onHandleEditInput, editFormData, onHandleCancel}) => {
+
+const EditableRow = ({editFormData, onHandleEditInput, onHandleCancel}) => {
     return (
         <tr>
            <td>
@@ -50,7 +51,7 @@ const EditableRow = ({onHandleEditInput, editFormData, onHandleCancel}) => {
             </td> 
             <td>
                 <button className={button} type="submit">Save</button>
-                <button className={button} onClick={onHandleCancel} type="button">Cancel</button>
+                <button onClick={onHandleCancel} className={button}  type="button">Cancel</button>
             </td>
            
         </tr>
